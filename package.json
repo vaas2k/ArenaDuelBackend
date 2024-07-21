@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.mjs",
   "type": "module",
   "scripts": {
-    "start": "set NODE_ENV=PRODUCTION & node server.mjs",
+    "start": "nodemon server.mjs",
     "dev": "npx nodemon server.mjs"
   },
   "author": "",

@@ -8,8 +8,6 @@ const matchController = {
     async push_player_to_queue(req, res, next) {
         // will put the player in redis queue
 
-        const time = Date.now();
-
         let playerInfo = req.body; // ID , Type , Rating;
         console.log(playerInfo);
         const timeStamp = Date.now();
@@ -106,18 +104,25 @@ const matchController = {
             const data = req.body;
 
             console.log(data);
-            const id = Math.floor(Math.random() * 19) + 1;
+            let id ;
+            while(true) {
+                id = Math.floor(Math.random() * 73) + 1;
+                if(id != 53 && id != 54 ) break;
+            }
             const createMatch = await prisma.marathon.create (
                 {
                     data : {
                         userID : data.id,
-                        problems : [1]
+                        problems : [id]
                     }                    
                 }
             )
 
             const socketKey = `Marathon-${data.id}`;
-            io.emit(socketKey,createMatch);
+
+            
+            setTimeout(()=> {io.emit(socketKey,createMatch);},[2500])
+            
             return res.status(200).json(createMatch);
         } catch ( error ) {
             console.log( error );

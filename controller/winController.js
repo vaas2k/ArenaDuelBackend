@@ -165,14 +165,8 @@ const winController = {
 
             
 
-            // update the match table for current user;
-            await prisma.marathon.update({
-                where : { id : data.id },
-                data :  {
-                    problems : data.problems,
-                    solved : data.solved
-                }
-            })
+            // delete the match table for current user;
+            await prisma.marathon.delete({ where : { id : data.id } })
          
          
             // update the leaderboard if entry for the user already exist 
@@ -260,7 +254,12 @@ const winController = {
 
             // inform the winner through socket
             const key = `abandon-${data.p2}`;
-            io.emit(key,{...update_match,by : data.by});
+
+            
+            setTimeout(()=>{
+                io.emit(key,{...update_match,by : data.by});
+            },[2500])
+            
             return res.status(200).json('All Good');
         }catch(error) { 
             console.log(error);

@@ -20,11 +20,19 @@ export const matchEvents = () => {
         await redis.zremrangebyrank(QueueKey, 0, 1);
       
         const matchCreated = await createMatch(P1, P2);
-      
+
+        console.log(P1);
+        console.log(P2);
+
+        console.log(matchCreated);
+        
+
         // send match created to both players on their sockets(id)
-        io.emit(JSON.stringify(matchCreated.p1), matchCreated);
-      
-        io.emit(JSON.stringify(matchCreated.p2), matchCreated);
+        setTimeout(() => {
+          io.emit(JSON.stringify(matchCreated.p1), matchCreated);
+          io.emit(JSON.stringify(matchCreated.p2), matchCreated);
+        },[2000]);
+        
     }
   });
 

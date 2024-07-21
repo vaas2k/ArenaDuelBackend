@@ -32,7 +32,6 @@ const io = new Server(server, {
     }
 });
 
-socket_connection();
 
 redis.on('connect', () => {
     console.log("REDIS CONNECTED");
@@ -42,6 +41,10 @@ app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000'
 }));
+
+
+socket_connection();
+matchEvents();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(router);
@@ -51,7 +54,6 @@ server.listen(PORT, () => {
     console.log(`Server Running on PORT: ${PORT}`);
 });
 
-matchEvents();
 
 export {
     redis,

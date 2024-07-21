@@ -10,7 +10,9 @@ export function socket_connection () {
 
             // data : { userid , room id , testCasesPassed }
             // send to match_started() to make socket based on room id
-            io.emit(`${room_id}`,data);
+            setTimeout(() => {
+                io.emit(`${data.room_id}`,data);
+            },[2500])
         })
 
 
