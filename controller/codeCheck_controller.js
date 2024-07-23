@@ -62,7 +62,7 @@ const CodeChecker = {
             }
 
             // Finding the number of wrong answers and calculating averages
-            let wrong = 0, avg_time = 0, avg_memory = 0 , RTE = false ; 
+            let wrong = 0, avg_time = 0, avg_memory = 0 , RTE = false, TLE = false  ; 
 
             for (let i = 0; i < output.length; i++) {
                 avg_memory += output[i].memory;
@@ -72,7 +72,7 @@ const CodeChecker = {
                     wrong++;
                 }
                 if (Number(output[i].time) >= 1) { // Ensure comparison is done with a number
-                    return res.status(201).json({ error: 'TLE' });
+                    TLE = true;
                 }
                 if (output[i].status.id == 6) {
                     return res.status(201).json({ error: 'CE' });
@@ -94,7 +94,10 @@ const CodeChecker = {
                 total: (inputs_outputs.length - 1),
                 time: avg_time_calc,
                 memory: avg_memory_calc,
-                message : RTE ? 'RTE' : null
+                message : {
+                    RTE : RTE ? 'RTE' : null,
+                    TLE : TLE ? 'TLE' : null
+                }
             };
 
             console.log(data);

@@ -29,7 +29,7 @@ export const  createMatch = async (P1, P2) => {
             if(i == 73) { 
                 break;
             }
-            getRandomID = Math.floor(Math.random() * 73) + 1;
+            getRandomID = Math.floor(Math.random() * 72) + 1;
             if(getRandomID == 53 || getRandomID == 54) continue; 
             if(getRandomID != p1_problem_check &&  getRandomID != p2_problem_check ){
                 break;
